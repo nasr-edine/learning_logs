@@ -1,0 +1,15 @@
+{% extends "learning_logs/base.html" %} {% block content %} 
+{% if user.is_authenticated %}
+<div class="jumbotron">
+  <h1 class="display-4">Learning Logs app</h1>
+  <p class="lead">Learning Log helps you keep track of your learning, for any topic you're
+    learning about.</p>
+</div>
+<p><a href="{% url 'users:logout' %}">log out</a></p>
+
+{% else %}
+<a href="{% url 'users:login' %}">log in</a> |
+<a href="{% url 'users:register' %}">Sign Up</a>
+{% endif %} {% endblock content %}
+
+

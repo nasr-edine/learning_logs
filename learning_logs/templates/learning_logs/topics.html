@@ -1,0 +1,42 @@
+{% extends "learning_logs/base.html" %} {% load static %} {% block content %}
+<style>
+  table {
+    font-family: arial, sans-serif;
+    border-collapse: collapse;
+    width: 100%;
+  }
+
+  td,
+  th {
+    border: 1px solid #dddddd;
+    text-align: left;
+    padding: 8px;
+  }
+</style>
+{% if user.is_authenticated %}
+<p>Topics</p>
+<table>
+  <tr>
+    <th>name</th>
+    <th>edit</th>
+    <th>delete</th>
+  </tr>
+  {% for topic in object_list %}
+  <tr>
+    <td>
+      <a href="{% url 'learning_logs:topic-detail' topic.pk %}">{{ topic }}</a>
+    </td>
+    <td>
+      <a href="{% url 'learning_logs:update-topic' topic.pk %}">edit</a>
+    </td>
+    <td>
+      <a href="{% url 'learning_logs:delete-topic' topic.pk %}">Delete</a>
+    </td>
+  </tr>
+  {% empty %}
+  <p>No topics have been added yet.</p>
+</table>
+{% endfor %} {% else %}
+<a href="{% url 'users:login' %}">log in</a> |
+<a href="{% url 'users:register' %}">Sign Up</a>
+{% endif %} {% endblock content %}

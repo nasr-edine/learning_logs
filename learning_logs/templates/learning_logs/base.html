@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <title>Learning logs app</title>
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'css/bootstrap.min.css' %}" />
+    <link rel="stylesheet" href="{% static 'css/bootstrap.css' %}" />
+  </head>
+  <body>
+    <nav class="navbar navbar-expand-md navbar-dark bg-dark mb-4">
+      <a class="navbar-brand" href="{% url 'learning_logs:index' %}"
+        >Learning logs</a
+      >
+      <button
+        class="navbar-toggler"
+        type="button"
+        data-toggle="collapse"
+        data-target="#navbarCollapse"
+        aria-controls="navbarCollapse"
+        aria-expanded="false"
+        aria-label="Toggle navigation"
+      >
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarCollapse">
+        {% if user.is_authenticated %}
+        <ul class="navbar-nav ml-auto">
+          <li class="nav-item">
+            <a
+              href="#"
+              class="nav-link dropdown-toggle drop"
+              id="userMenu"
+              data-toggle="dropdown"
+              aria-haspopup="true"
+              aria-expanded="false"
+              >{{ user.username }}
+            </a>
+            <div
+              class="dropdown-menu dropdown-menu-right"
+              aria-labelledby="userMenu">
+              <div class="dropdown-divider"></div>
+              <a href="{% url 'learning_logs:topics' %}" class="dropdown-item">topics</a>
+
+              <div class="dropdown-divider"></div>
+              <a href="{% url 'learning_logs:new_topic' %}" class="dropdown-item">New topic</a>
+
+              <div class="dropdown-divider"></div>
+              <a href="{% url 'learning_logs:upload_csv' %}" class="dropdown-item">Upload CSV</a>
+
+              <div class="dropdown-divider"></div>
+              <a href="{% url 'users:logout' %}" class="dropdown-item">logout</a>
+            </div>
+          </li>
+        </ul>
+        {% else %}
+        <form class="form-inline ml-auto">
+          <a href="{% url 'users:login' %}" class="btn btn-outline-secondary"
+            >Connexion</a
+          >
+          <a href="{% url 'users:register' %}" class="btn btn-primary ml-2"
+            >S'inscrire</a
+          >
+        </form>
+        {% endif %}
+      </div>
+    </nav>
+
+    <div class="container">{% block content %} {% endblock %}</div>
+    <script src="{% static 'js/jquery-3.6.0.min.js' %}"></script>
+    <script src="{% static 'js/bootstrap.min.js' %}"></script>
+    {% block javascript %} {% endblock %}
+  </body>
+</html>
